@@ -3,6 +3,7 @@ package jm.task.core.jdbc.service;
 import jm.task.core.jdbc.dao.UserDaoJDBCImpl;
 import jm.task.core.jdbc.model.User;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
@@ -15,7 +16,7 @@ public class UserServiceImpl implements UserService {
         udi.dropUsersTable();
     }
 
-    public void saveUser(String name, String lastName, byte age) {
+    public void saveUser(String name, String lastName, byte age) throws SQLException {
         udi.saveUser(name, lastName, age);
     }
 
