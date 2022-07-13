@@ -34,10 +34,18 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
-    public void saveUser(String name, String lastName, byte age) throws SQLException {
-        Util.connection().prepareStatement("INSERT users (name, lastName, age) VALUES ('" +
-                name + "', '" + lastName + "', " + age + ")");
-        System.out.println("User с именем –  " + name + " добавлен в базу данных");
+    public void saveUser(String name, String lastName, byte age) {
+        try {
+            PreparedStatement preparedStatement = Util.connection().
+                    prepareStatement("INSERT INTO users (name,lastName,age) values(?,?,?)");
+            preparedStatement.setString(1, name);
+            preparedStatement.setString(2, lastName);
+            preparedStatement.setByte(3, age);
+            preparedStatement.executeUpdate();
+            System.out.printf("User с именем – %s добавлен в базу данных\n", name);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void removeUserById(long id) {
